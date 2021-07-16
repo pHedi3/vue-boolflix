@@ -12,7 +12,7 @@
         <div class="more-info">
           {{ orTitle }}<br />
           {{ vote }}
-          <div v-html="genFlag" ></div>
+          <Flag :orLen="orLen" />
         </div>
       </div>
     </div>
@@ -20,8 +20,12 @@
 </template>
 
 <script>
+import Flag from "./Flag.vue"
 export default {
   name: "Film",
+  components: {
+      Flag
+  },
   props: {
     title: String,
     orTitle: String,
@@ -32,17 +36,6 @@ export default {
   data() {
     return {
       hover: false,
-      flagOption: [
-          'de',
-          'en',
-          'es',
-          'fr',
-          'it',
-          'ja',
-          'ko',
-          'ru',
-          'zh'
-          ]
     };
   },
   computed: {
@@ -54,13 +47,6 @@ export default {
               return false
           }
       },
-      genFlag() {
-          if (this.flagOption.includes(this.orLen)) {
-              return `<img src="../img/flag/${this.orLen}.svg" alt="">`
-          } else {
-              return `<span>${this.orLen}</span>`
-          }
-      }
   },
   methods: {
       timer() {
@@ -103,10 +89,6 @@ export default {
         font-size: 14px;
         font-weight: bold;
         margin-bottom: 12px;
-      }
-      img {
-          height: 8px;
-          width: 12px;
       }
     }
   }
