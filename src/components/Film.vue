@@ -1,9 +1,23 @@
 <template>
   <div class="film" @mouseover="hover = true" @mouseleave="hover = false">
-    <img
-      src="https://image.tmdb.org/t/p/w342/hQq8xZe5uLjFzSBt4LanNP7SQjl.jpg"
+    <img v-if="poster_path != null"
+      :src="creatPathImg"
       alt=""
     />
+    <div v-else>
+        <div class="info-box">
+      <div class="info">
+        <div class="title">
+          {{ title }}
+        </div>
+        <div class="more-info">
+          {{ orTitle }}<br />
+          {{ vote }}
+          <Flag :orLen="orLen" />
+        </div>
+      </div>
+    </div>
+    </div>
     <div v-if="hover || (hoverSerch && hover )" class="info-box">
       <div class="info">
         <div class="title">
@@ -32,6 +46,7 @@ export default {
     orLen: String,
     vote: Number,
     usSerch: Boolean,
+    poster_path: String
   },
   data() {
     return {
@@ -47,6 +62,9 @@ export default {
               return false
           }
       },
+      creatPathImg() {
+              return  'https://image.tmdb.org/t/p/w342' + this.poster_path
+      }
   },
   methods: {
       timer() {
@@ -64,6 +82,7 @@ export default {
 <style scoped lang="scss">
 .film {
   position: relative;
+  margin-bottom: 24px;
 
   img {
     width: 100%;
@@ -74,19 +93,20 @@ export default {
     left: 50%;
     transform: translate(-50%);
 
-    background-color: rgba(0, 0, 0, 0.5);
+    background-color: rgba(0, 0, 0, 0.3);
     height: 100%;
     width: calc(100% - calc(var(--bs-gutter-x)));
     .info {
+        width: 200px;
       position: absolute;
       top: 50%;
       left: 50%;
       transform: translate(-50%, -50%);
-      font-size: 10px;
+      font-size: 16px;
       text-align: center;
       display: block;
       .title {
-        font-size: 14px;
+        font-size: 26px;
         font-weight: bold;
         margin-bottom: 12px;
       }

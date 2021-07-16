@@ -1,12 +1,13 @@
 <template>
-  <div class="main">
+  <div >
     <div class="container">
       <div class="row">
-        <Film class="col-2" v-for="film in films" :key="film.id" 
+        <Film class="col-3" v-for="film in films" :key="film.id" 
             :title="film.title"
             :orTitle="film.original_title"
             :orLen="film.original_language"
             :vote="film.vote_average"
+            :poster_path="film.poster_path"
             :usSerch="usSerch"/>
       </div>
     </div>

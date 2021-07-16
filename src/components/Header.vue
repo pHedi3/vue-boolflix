@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <div>
     <div class="right">
       <img src="../assets/Netflix_logo.svg" alt="" />
       <ul>
@@ -35,12 +35,6 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.header {
-  display: flex;
-  justify-content: space-between;
-  height: 60px;
-  padding: 12px 24px;
-  font-size: 14px;
   .right {
     display: flex;
     align-items: center;
@@ -81,5 +75,4 @@ export default {
       color: white;
     }
   }
-}
 </style>
