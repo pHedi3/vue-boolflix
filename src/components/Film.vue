@@ -11,8 +11,8 @@
         </div>
         <div class="more-info">
           {{ orTitle }}<br />
-          {{ orLen }}<br />
           {{ vote }}
+          <div v-html="genFlag" ></div>
         </div>
       </div>
     </div>
@@ -32,6 +32,17 @@ export default {
   data() {
     return {
       hover: false,
+      flagOption: [
+          'de',
+          'en',
+          'es',
+          'fr',
+          'it',
+          'ja',
+          'ko',
+          'ru',
+          'zh'
+          ]
     };
   },
   computed: {
@@ -41,6 +52,13 @@ export default {
               return true
           } else {
               return false
+          }
+      },
+      genFlag() {
+          if (this.flagOption.includes(this.orLen)) {
+              return `<img src="../img/flag/${this.orLen}.svg" alt="">`
+          } else {
+              return `<span>${this.orLen}</span>`
           }
       }
   },
@@ -85,6 +103,10 @@ export default {
         font-size: 14px;
         font-weight: bold;
         margin-bottom: 12px;
+      }
+      img {
+          height: 8px;
+          width: 12px;
       }
     }
   }
