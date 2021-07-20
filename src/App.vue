@@ -1,6 +1,6 @@
 <template>
   <div id="app">
-    <Header class="header" @serch="filterFilms" />
+    <Header class="header" @serch="[takeSerch($event), filterFilms(), filterSeries()]" />
     <Main class="main" :series="listSeries" :films="listFilm" :usSerch="usSerch" />
   </div>
 </template>
@@ -27,41 +27,35 @@ export default {
     };
   },
   created() {
-    axios
-      .get(
-        "https://api.themoviedb.org/3/movie/popular?api_key=098554c0b3206d5eb1f641f49f7c0115&language=en-US&page=1"
-      )
+    axios.get("https://api.themoviedb.org/3/movie/popular?api_key=098554c0b3206d5eb1f641f49f7c0115&language=en-US&page=1")
       .then((res) => {
         this.films = res.data.results;
         this.listFilm = this.films;
       });
-    axios
-      .get(
-        "https://api.themoviedb.org/3/tv/popular?api_key=098554c0b3206d5eb1f641f49f7c0115&language=en-US&page=1"
-      )
+    axios.get("https://api.themoviedb.org/3/tv/popular?api_key=098554c0b3206d5eb1f641f49f7c0115&language=en-US&page=1")
       .then((res) => {
         this.series = res.data.results;
         this.listSeries = this.series;
       });
   },
   methods: {
-    filterFilms(text) {
-      this.usSerch = false;
-      this.textSerch = text;
-      if (text != "") {
-        this.usSerch = true;
+    filterFilms() {
+      if(this.takeSerch != "") {
         axios.get("https://api.themoviedb.org/3/search/movie?api_key=098554c0b3206d5eb1f641f49f7c0115&query=" + this.textSerch)
           .then((res) => {
             this.listFilm = res.data.results;
           });
+      }
+      this.listFilm = this.films
+    },
+    filterSeries() {
+      if(this.takeSerch != "") {
         axios.get("https://api.themoviedb.org/3/search/tv?api_key=098554c0b3206d5eb1f641f49f7c0115&query=" + this.textSerch)
           .then((res) => {
             this.listSeries = res.data.results;
           });
-      } else {
-        this.listFilm = this.films;
-        this.listSeries = this.series
       }
+      this.listSeries = this.series
     },
     takeSerch(text) {
       this.usSerch = false;
@@ -69,10 +63,9 @@ export default {
       if (text != "") {
         this.usSerch = true;
       }
-      this.filterFilms();
-    },
-  },
-};
+    }
+  }
+}
 </script>
 
 <style lang="scss">

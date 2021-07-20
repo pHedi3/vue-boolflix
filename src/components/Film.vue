@@ -9,10 +9,7 @@
           </div>
           <div class="more-info">
             {{ orTitle }}<br />
-            <div class="star" v-for="(star, index) in stars" :key="index">
-                <i v-show="star == 1" class="fas fa-star"></i>
-                <i v-show="star == 0" class="far fa-star"></i>
-            </div>
+            <i v-for="n in 5" :key="n" class="fa-star" :class="genStar(n)"></i>
             <div v-if="this.falgOption.includes(this.orLen)">
               <img :src="createFlagPath" alt="" />
             </div>
@@ -21,17 +18,17 @@
         </div>
       </div>
     </div>
-    <div v-if="(hover || (hoverSerch && hover)) && poster_path != null" class="info-box">
+    <div
+      v-if="(hover || (hoverSerch && hover)) && poster_path != null"
+      class="info-box"
+    >
       <div class="info">
         <div class="title">
           {{ title }}
         </div>
         <div class="more-info">
           {{ orTitle }}<br />
-            <div class="star" v-for="(star, index) in stars" :key="index">
-                <i v-show="star == 1" class="fas fa-star"></i>
-                <i v-show="star == 0" class="far fa-star"></i>
-            </div>
+          <i v-for="n in 5" :key="n" class="fa-star" :class="genStar(n)"></i>
           <div v-if="this.falgOption.includes(this.orLen)">
             <img :src="createFlagPath" alt="" />
           </div>
@@ -46,7 +43,6 @@
 
 export default {
   name: "Film",
-
   props: {
     title: String,
     orTitle: String,
@@ -59,11 +55,7 @@ export default {
     return {
       hover: false,
       falgOption: ["de", "en", "es", "fr", "it", "ja", "ko", "ru", "zh"],
-      stars: []
     };
-  },
-  mounted() {
-      this.genStar()
   },
   computed: {
     hoverSerch() {
@@ -83,7 +75,7 @@ export default {
       } else {
         return this.orLen;
       }
-    },
+    }
   },
   methods: {
     timer() {
@@ -92,20 +84,17 @@ export default {
         this.hover = false;
       }, 3000);
     },
-    genStar() {
-        let int = parseInt( this.vote / 2)
-        for (let x = 0; x < 5; x++) {
-            if( x < int) {
-                this.stars.push(1)
-            } 
-            if ( x <= 5 && x >= int) {
-                this.stars.push(0)
-            }
-        }
-
+    genStar(n) {
+      let int = parseInt( this.vote / 2)
+      console.log(int)
+      if( n <= int) {
+        return 'fas'
+      } else  {
+        return 'far'
+      }
     }
-  },
-};
+  }
+}
 </script>
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
@@ -117,7 +106,7 @@ export default {
     width: 100%;
   }
   .incase {
-      height: 390px;
+    height: 390px;
   }
   .info-box {
     position: absolute;
@@ -142,13 +131,13 @@ export default {
         margin-bottom: 8px;
       }
       img {
-          height: 30px;
+        height: 30px;
       }
       .star {
-          display: inline-block;
-          i {
-              margin-right: 4px;
-          }
+        display: inline-block;
+        i {
+          margin-right: 4px;
+        }
       }
     }
   }
