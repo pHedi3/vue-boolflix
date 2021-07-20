@@ -10,18 +10,12 @@
           <div class="more-info">
             {{ orTitle }}<br />
             <i v-for="n in 5" :key="n" class="fa-star" :class="genStar(n)"></i>
-            <div v-if="this.falgOption.includes(this.orLen)">
-              <img :src="createFlagPath" alt="" />
-            </div>
-            <div v-else>{{ createFlagPath }}</div>
+            <flag class="flag" :iso="fixLenguage" />
           </div>
         </div>
       </div>
     </div>
-    <div
-      v-if="(hover || (hoverSerch && hover)) && poster_path != null"
-      class="info-box"
-    >
+    <div v-if="(hover || (hoverSerch && hover)) && poster_path != null" class="info-box">
       <div class="info">
         <div class="title">
           {{ title }}
@@ -29,10 +23,7 @@
         <div class="more-info">
           {{ orTitle }}<br />
           <i v-for="n in 5" :key="n" class="fa-star" :class="genStar(n)"></i>
-          <div v-if="this.falgOption.includes(this.orLen)">
-            <img :src="createFlagPath" alt="" />
-          </div>
-          <div v-else>{{ createFlagPath }}</div>
+          <flag class="flag" :iso="fixLenguage" />
         </div>
       </div>
     </div>
@@ -54,7 +45,6 @@ export default {
   data() {
     return {
       hover: false,
-      falgOption: ["de", "en", "es", "fr", "it", "ja", "ko", "ru", "zh"],
     };
   },
   computed: {
@@ -69,11 +59,11 @@ export default {
     creatPathImg() {
       return "https://image.tmdb.org/t/p/w342" + this.poster_path;
     },
-    createFlagPath() {
-      if (this.falgOption.includes(this.orLen)) {
-        return require("../assets/flag/" + this.orLen + ".svg");
+    fixLenguage() {
+      if (this.orLen == 'en') {
+        return 'us'
       } else {
-        return this.orLen;
+        return this.orLen
       }
     }
   },
@@ -133,11 +123,14 @@ export default {
       img {
         height: 30px;
       }
-      .star {
+      i {
         display: inline-block;
-        i {
-          margin-right: 4px;
-        }
+        margin-right: 4px;
+      }
+      .flag {
+        display: inline-block;
+        width: 100%;
+        height: 30px;
       }
     }
   }
