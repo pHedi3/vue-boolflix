@@ -1,5 +1,5 @@
 <template>
-  <div class="film" @mouseover="hover = true" @mouseleave="hover = false">
+  <div class="mycard" @mouseover="hover = true" @mouseleave="hover = false">
     <img v-if="poster_path != null" :src="creatPathImg" alt="" />
     <div v-else class="incase">
       <div class="info-box">
@@ -88,14 +88,16 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-.film {
+.mycard {
   position: relative;
-  margin-bottom: 24px;
+
   img {
+    width: calc(100% - calc(var(--bs-gutter-x)));
     width: 100%;
   }
   .incase {
     height: 390px;
+    width: 261px;
   }
   .info-box {
     position: absolute;
@@ -104,7 +106,7 @@ export default {
     transform: translate(-50%);
     background-color: rgba(0, 0, 0, 0.3);
     height: 100%;
-    width: 100%;
+    width: calc(100% - calc(var(--bs-gutter-x)));
     .info {
       width: 200px;
       position: absolute;
