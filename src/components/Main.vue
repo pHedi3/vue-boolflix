@@ -3,8 +3,10 @@
     <div class="container">
       <div class="row">
         <h1>Films</h1>
-        <div class="col-12 film card-container">
-          <div class="row">
+        <div class="col-12 card-container">
+          <div class="row justify-content-between">
+          <div v-show="curIndexFilms >= 4" class="button-left" @click="goBackFilms()"><i class="fas fa-arrow-left"></i></div>
+          <div v-show="curIndexFilms < films.length - 4" class="button-right" @click="goToFilms()"><i class="fas fa-arrow-right"></i></div>
             <Film class="col-3" v-for="film in stampFilm" :key="film.id" 
             :title="film.title"
             :orTitle="film.original_title"
@@ -13,12 +15,12 @@
             :poster_path="film.poster_path"
             :usSerch="usSerch"/>
           </div>
-          <div v-show="curIndexFilms >= 4" class="button-left" @click="goBackFilms()"><i class="fas fa-arrow-left"></i></div>
-          <div v-show="curIndexFilms < films.length - 4" class="button-right" @click="goToFilms()"><i class="fas fa-arrow-right"></i></div>
         </div>
       <h1>Series</h1>
-        <div  class="col-12 series card-container">
-          <div class="row">
+        <div  class="col-12 card-container">
+          <div class="row justify-content-between">
+          <div v-show="curIndexSeries >= 4" class="button-left" @click="goBackSeries()"><i class="fas fa-arrow-left"></i></div>
+          <div v-show="curIndexSeries < series.length - 4" class="button-right" @click="goToSeries()"><i class="fas fa-arrow-right"></i></div>
           <Film class="col-3" v-for="serie in stampSeries" :key="serie.id"
             :title="serie.name"
             :orTitle="serie.original_name"
@@ -27,8 +29,6 @@
             :poster_path="serie.poster_path"
             :usSerch="usSerch"/>
           </div>
-          <div v-show="curIndexSeries >= 4" class="button-left" @click="goBackSeries()"><i class="fas fa-arrow-left"></i></div>
-          <div v-show="curIndexSeries < series.length - 4" class="button-right" @click="goToSeries()"><i class="fas fa-arrow-right"></i></div>
         </div>
       </div>
     </div>
@@ -93,37 +93,31 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .card-container {
-  width: 100%;
-  display: flex;
-  align-items: center;
+  margin-bottom: 24px;
   position: relative;
-  .button-left {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 200px;
-    width: 40px;
-    font-size: 30px;
-    position: absolute;
-    top: 50%;
-    left: calc(0% + calc(var(--bs-gutter-x)* .5));
-    transform: translate(0, -50%);
-    background-color: rgba(0, 0, 0, 0.8);
-
+  .row {
+    width: 100%;
+    [class*=button] {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 200px;
+      width: 40px;
+      font-size: 30px;
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.8);
+      top: 50%;
+      z-index: 1001;
+    }
+    .button-left {
+      left:0%;
+      transform: translate(0, -50%);
+    }
+    .button-right {
+      left: calc(100% - calc(var(--bs-gutter-x)));
+      transform: translate(-100%, -50%);
+    }
   }
 
-  .button-right {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    height: 200px;
-    width: 40px;
-    font-size: 30px;
-    position: absolute;
-    top: 50%;
-    left: calc(100% - calc(var(--bs-gutter-x)* .5));
-    transform: translate(-100%, -50%);
-    background-color: rgba(0, 0, 0, 0.8);
-  }
 }
 </style>

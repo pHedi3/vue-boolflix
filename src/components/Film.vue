@@ -1,21 +1,6 @@
 <template>
-  <div class="mycard" @mouseover="hover = true" @mouseleave="hover = false">
-    <img v-if="poster_path != null" :src="creatPathImg" alt="" />
-    <div v-else class="incase">
-      <div class="info-box">
-        <div class="info">
-          <div class="title">
-            {{ title }}
-          </div>
-          <div class="more-info">
-            {{ orTitle }}<br />
-            <i v-for="n in 5" :key="n" class="fa-star" :class="genStar(n)"></i>
-            <flag class="flag" :iso="fixLenguage" />
-          </div>
-        </div>
-      </div>
-    </div>
-    <div v-if="(hover || (hoverSerch && hover)) && poster_path != null" class="info-box">
+  <div :style="'background-image: url(' + creatPathImg + ')'" class="mycard" @mouseover="hover = true" @mouseleave="hover = false">
+    <div v-show="hoverCase" class="info-box">
       <div class="info">
         <div class="title">
           {{ title }}
@@ -65,6 +50,18 @@ export default {
       } else {
         return this.orLen
       }
+    },
+    hoverCase() {
+      if (this.poster_path == null) {
+        return true
+      } 
+      if (this.hover) {
+        return true
+      }
+      if (this.hoverSerch && this.hover) {
+        return true
+      }
+      return false
     }
   },
   methods: {
@@ -72,7 +69,7 @@ export default {
       this.hover = true;
       setTimeout(() => {
         this.hover = false;
-      }, 3000);
+      }, 1500);
     },
     genStar(n) {
       let int = parseInt( this.vote / 2)
@@ -89,24 +86,15 @@ export default {
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
 .mycard {
-  position: relative;
-
-  img {
-    width: calc(100% - calc(var(--bs-gutter-x)));
-    width: 100%;
-  }
-  .incase {
-    height: 390px;
-    width: 261px;
-  }
+  background-position: center;
+  background-size: cover;
+  padding: 0;
+  height: 400px;
+  width: calc(25% - calc(var(--bs-gutter-x)) );
   .info-box {
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translate(-50%);
-    background-color: rgba(0, 0, 0, 0.3);
     height: 100%;
-    width: calc(100% - calc(var(--bs-gutter-x)));
+    position: relative;
+    background-color: rgba(0, 0, 0, .5);
     .info {
       width: 200px;
       position: absolute;
@@ -120,9 +108,6 @@ export default {
         font-size: 34px;
         font-weight: bold;
         margin-bottom: 8px;
-      }
-      img {
-        height: 30px;
       }
       i {
         display: inline-block;

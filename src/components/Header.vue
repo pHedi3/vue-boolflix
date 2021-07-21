@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="right">
+    <div class="part">
       <img src="../assets/Netflix_logo.svg" alt="" />
       <ul>
         <li>Home</li>
@@ -11,7 +11,7 @@
         <li>La mia lista</li>
       </ul>
     </div>
-    <div class="left">
+    <div class="part">
       <i @click="$emit('serch', serch)" class="fas fa-search"></i>
       <input type="text" placeholder="Cerca" v-model="serch" @keyup.enter="$emit('serch', serch)">
       <i class="fas fa-bell"></i>
@@ -34,7 +34,7 @@ export default {
 
 <!-- Add "scoped" attribute to limit CSS to this component only -->
 <style scoped lang="scss">
-  .right {
+  .part {
     display: flex;
     align-items: center;
     ul {
@@ -54,10 +54,6 @@ export default {
     img {
       height: 100%;
     }
-  }
-  .left {
-    display: flex;
-    align-items: center;
     i {
       display: inline;
       font-size: 18px;

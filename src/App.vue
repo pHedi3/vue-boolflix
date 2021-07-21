@@ -45,8 +45,9 @@ export default {
           .then((res) => {
             this.listFilm = res.data.results;
           });
+      } else {
+        this.listFilm = this.films
       }
-      this.listFilm = this.films
     },
     filterSeries() {
       if(this.takeSerch != "") {
@@ -54,8 +55,9 @@ export default {
           .then((res) => {
             this.listSeries = res.data.results;
           });
+      } else {
+        this.listSeries = this.series
       }
-      this.listSeries = this.series
     },
     takeSerch(text) {
       this.usSerch = false;
