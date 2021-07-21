@@ -76,7 +76,6 @@ export default {
     },
     genStar(n) {
       let int = parseInt( this.vote / 2)
-      console.log(int)
       if( n <= int) {
         return 'fas'
       } else  {
@@ -105,7 +104,7 @@ export default {
     transform: translate(-50%);
     background-color: rgba(0, 0, 0, 0.3);
     height: 100%;
-    width: calc(100% - calc(var(--bs-gutter-x)));
+    width: 100%;
     .info {
       width: 200px;
       position: absolute;
